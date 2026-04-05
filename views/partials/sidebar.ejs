@@ -1,0 +1,32 @@
+<aside class="sidebar">
+  <div class="logo">Vision<span>AI</span></div>
+  <nav>
+    <a href="/dashboard" class="<%= active === 'dashboard' ? 'active' : '' %>">
+      <span class="nav-icon">🏠</span> Overview
+    </a>
+    <a href="/contacts" class="<%= active === 'contacts' ? 'active' : '' %>">
+      <span class="nav-icon">👥</span> Contacts
+    </a>
+    <a href="/analytics" class="<%= active === 'analytics' ? 'active' : '' %>">
+      <span class="nav-icon">📊</span> Analytics
+    </a>
+    <a href="/settings" class="<%= active === 'settings' ? 'active' : '' %>">
+      <span class="nav-icon">⚙️</span> Settings
+    </a>
+    <a href="/" style="margin-top:12px">
+      <span class="nav-icon">🌐</span> Public Site
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="user-info">
+      <div class="avatar"><%= user.username.charAt(0).toUpperCase() %></div>
+      <div>
+        <div class="user-name"><%= user.username %></div>
+        <div class="user-role">Admin</div>
+      </div>
+    </div>
+    <a href="/logout" class="logout-btn">
+      <span>🚪</span> Logout
+    </a>
+  </div>
+</aside>

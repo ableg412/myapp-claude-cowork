@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard – VisionAI</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<div class="dash-layout">
+
+  <!-- ── Sidebar ── -->
+  <%- include('partials/sidebar', { active: 'dashboard' }) %>
+
+  <!-- ── Main ── -->
+  <main class="dash-main">
+    <div class="dash-header">
+      <h1>Welcome back, <%= user.username %> 👋</h1>
+      <p>Here's what's happening with your clients today.</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">👥</div>
+        <div class="stat-label">Total Contacts</div>
+        <div class="stat-value gradient-text"><%= contacts.length %></div>
+        <div class="stat-delta">↑ 12% this month</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">✅</div>
+        <div class="stat-label">Active Clients</div>
+        <div class="stat-value gradient-text"><%= contacts.filter(c => c.status === 'Active').length %></div>
+        <div class="stat-delta">↑ 8% this month</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🎯</div>
+        <div class="stat-label">Prospects</div>
+        <div class="stat-value gradient-text"><%= contacts.filter(c => c.status === 'Prospect').length %></div>
+        <div class="stat-delta">↑ 3 new this week</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">💰</div>
+        <div class="stat-label">Est. Monthly Revenue</div>
+        <div class="stat-value gradient-text">$24.5K</div>
+        <div class="stat-delta">↑ 18% this month</div>
+      </div>
+    </div>
+
+    <!-- Recent Contacts Table -->
+    <div class="table-card">
+      <div class="table-card-header">
+        <h2>Recent Contacts</h2>
+        <a href="/contacts" class="btn btn-ghost btn-sm">View All →</a>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Company</th>
+            <th>Status</th>
+            <th>Added</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% contacts.slice(0, 5).forEach(contact => { %>
+          <tr>
+            <td class="td-name"><%= contact.name %></td>
+            <td class="td-email"><%= contact.email %></td>
+            <td class="td-company"><%= contact.company %></td>
+            <td>
+              <span class="badge badge-<%= contact.status.toLowerCase() %>">
+                <%= contact.status %>
+              </span>
+            </td>
+            <td style="color:var(--muted)"><%= contact.created_at %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+</body>
+</html>

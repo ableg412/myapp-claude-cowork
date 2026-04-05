@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VisionAI – AI-Powered Marketing Agency</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav class="navbar">
+    <div class="logo">Vision<span>AI</span></div>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#cta">Contact</a>
+      <% if (user) { %>
+        <a href="/dashboard" class="btn btn-primary btn-sm">Dashboard</a>
+      <% } else { %>
+        <a href="/login" class="btn btn-primary btn-sm">Login</a>
+      <% } %>
+    </div>
+  </nav>
+
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <div>
+      <div class="hero-badge">✦ Trusted by 200+ businesses worldwide</div>
+      <h1>Scale Your Business with <span class="gradient-text">AI-Powered Marketing</span></h1>
+      <p>We combine cutting-edge artificial intelligence with human creativity to deliver marketing results that actually move the needle.</p>
+      <div class="hero-cta">
+        <a href="#cta" class="btn btn-primary">Book a Strategy Call →</a>
+        <a href="#services" class="btn btn-outline">View Services</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <h3 class="gradient-text">3.8×</h3>
+          <p>Average ROI boost</p>
+        </div>
+        <div class="stat">
+          <h3 class="gradient-text">200+</h3>
+          <p>Clients served</p>
+        </div>
+        <div class="stat">
+          <h3 class="gradient-text">98%</h3>
+          <p>Client retention</p>
+        </div>
+        <div class="stat">
+          <h3 class="gradient-text">$42M+</h3>
+          <p>Revenue generated</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Services ── -->
+  <section class="services" id="services">
+    <div class="services-header">
+      <div class="section-label">What We Do</div>
+      <h2 class="section-title">Full-Stack Growth Solutions</h2>
+      <p class="section-sub">From pixel-perfect design to AI-driven campaigns — we handle everything so you can focus on building.</p>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-icon">🎨</div>
+        <h3>Web Design</h3>
+        <p>Stunning, conversion-focused websites that represent your brand and turn visitors into customers.</p>
+        <div class="service-tags">
+          <span class="service-tag">UI/UX</span>
+          <span class="service-tag">Figma</span>
+          <span class="service-tag">Responsive</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">⚙️</div>
+        <h3>Development</h3>
+        <p>Fast, scalable web applications built with modern tech stacks and engineered for performance and growth.</p>
+        <div class="service-tags">
+          <span class="service-tag">React</span>
+          <span class="service-tag">Node.js</span>
+          <span class="service-tag">APIs</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🤖</div>
+        <h3>AI Integration</h3>
+        <p>Supercharge your marketing with AI-powered personalization, chatbots, predictive analytics, and automation.</p>
+        <div class="service-tags">
+          <span class="service-tag">GPT-4</span>
+          <span class="service-tag">Automation</span>
+          <span class="service-tag">Analytics</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">📈</div>
+        <h3>Growth Marketing</h3>
+        <p>Data-driven campaigns across SEO, paid ads, email, and social media that compound over time.</p>
+        <div class="service-tags">
+          <span class="service-tag">SEO</span>
+          <span class="service-tag">PPC</span>
+          <span class="service-tag">Email</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">💬</div>
+        <h3>Brand Strategy</h3>
+        <p>Build a brand people remember. We craft positioning, messaging, and visual identity that resonates.</p>
+        <div class="service-tags">
+          <span class="service-tag">Identity</span>
+          <span class="service-tag">Messaging</span>
+          <span class="service-tag">Positioning</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">📊</div>
+        <h3>Analytics & BI</h3>
+        <p>Turn your data into decisions. Custom dashboards and reporting that give you total visibility.</p>
+        <div class="service-tags">
+          <span class="service-tag">Dashboards</span>
+          <span class="service-tag">KPIs</span>
+          <span class="service-tag">Insights</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <section class="cta-section" id="cta">
+    <div class="section-label">Get Started</div>
+    <h2>Ready to <span class="gradient-text">Grow Faster</span>?</h2>
+    <p>Book a free 30-minute strategy call and discover exactly how we can accelerate your growth with AI.</p>
+    <div class="cta-features">
+      <div class="cta-feature"><span>✓</span> No commitment required</div>
+      <div class="cta-feature"><span>✓</span> Custom growth roadmap</div>
+      <div class="cta-feature"><span>✓</span> AI opportunity audit</div>
+    </div>
+    <a href="/login" class="btn btn-primary">Book Your Free Strategy Call →</a>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="logo">Vision<span>AI</span></div>
+    <p>© <%= new Date().getFullYear() %> VisionAI Marketing Agency. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Contact</a>
+    </div>
+  </footer>
+
+</body>
+</html>

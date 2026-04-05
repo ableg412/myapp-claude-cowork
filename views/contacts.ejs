@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contacts – VisionAI</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<div class="dash-layout">
+
+  <%- include('partials/sidebar', { active: 'contacts' }) %>
+
+  <main class="dash-main">
+    <div class="dash-header">
+      <h1>Contacts</h1>
+      <p>Manage all your client relationships in one place.</p>
+    </div>
+
+    <div class="table-card">
+      <div class="table-card-header">
+        <h2>All Clients (<%= contacts.length %>)</h2>
+        <button class="btn btn-primary btn-sm">+ Add Contact</button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Company</th>
+            <th>Status</th>
+            <th>Added</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% contacts.forEach((contact, i) => { %>
+          <tr>
+            <td style="color:var(--muted);font-size:.8rem"><%= contact.id %></td>
+            <td class="td-name"><%= contact.name %></td>
+            <td class="td-email"><%= contact.email %></td>
+            <td class="td-company"><%= contact.company %></td>
+            <td>
+              <span class="badge badge-<%= contact.status.toLowerCase() %>">
+                <%= contact.status %>
+              </span>
+            </td>
+            <td style="color:var(--muted)"><%= contact.created_at %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+</body>
+</html>
