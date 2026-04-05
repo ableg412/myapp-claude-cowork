@@ -1,55 +1,26 @@
 const express = require('express');
 const session = require('express-session');
 const path = require('path');
-const Database = require('better-sqlite3');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ─── Database Setup ───────────────────────────────────────────────────────────
-const db = new Database('./visionai.db');
+// ─── In-Memory Data ───────────────────────────────────────────────────────────
 
-db.exec(`
-  CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT UNIQUE NOT NULL,
-    password TEXT NOT NULL
-  );
+const USERS = [
+  { id: 1, username: 'Abel', password: '1234' }
+];
 
-  CREATE TABLE IF NOT EXISTS contacts (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    email TEXT NOT NULL,
-    company TEXT NOT NULL,
-    status TEXT NOT NULL,
-    created_at TEXT NOT NULL
-  );
-`);
-
-// Seed hardcoded user
-const existingUser = db.prepare('SELECT * FROM users WHERE username = ?').get('Abel');
-if (!existingUser) {
-  db.prepare('INSERT INTO users (username, password) VALUES (?, ?)').run('Abel', '1234');
-}
-
-// Seed dummy contacts
-const contactCount = db.prepare('SELECT COUNT(*) as count FROM contacts').get();
-if (contactCount.count === 0) {
-  const insertContact = db.prepare(
-    'INSERT INTO contacts (name, email, company, status, created_at) VALUES (?, ?, ?, ?, ?)'
-  );
-  const contacts = [
-    ['John Smith',     'john.smith@techcorp.io',    'TechCorp Inc.',       'Active',   '2024-11-03'],
-    ['Sarah Johnson',  'sarah@brightmedia.co',       'Bright Media Co.',    'Active',   '2024-11-15'],
-    ['Marcus Lee',     'marcus.lee@nexusgroup.com',  'Nexus Group',         'Prospect', '2024-12-01'],
-    ['Priya Patel',    'priya@startupx.io',          'StartupX',            'Active',   '2024-12-10'],
-    ['David Kim',      'david.kim@growlab.com',      'GrowLab Agency',      'Inactive', '2025-01-04'],
-    ['Olivia Turner',  'olivia@turnerbrands.net',    'Turner Brands',       'Active',   '2025-01-18'],
-    ['Ethan Brooks',   'e.brooks@cloudventures.io',  'Cloud Ventures',      'Prospect', '2025-02-02'],
-    ['Aisha Morales',  'aisha@moredesign.com',       'More Design Studio',  'Active',   '2025-02-20'],
-  ];
-  contacts.forEach(c => insertContact.run(...c));
-}
+const CONTACTS = [
+  { id: 1, name: 'John Smith',    email: 'john.smith@techcorp.io',   company: 'TechCorp Inc.',      status: 'Active',   created_at: '2024-11-03' },
+  { id: 2, name: 'Sarah Johnson', email: 'sarah@brightmedia.co',      company: 'Bright Media Co.',   status: 'Active',   created_at: '2024-11-15' },
+  { id: 3, name: 'Marcus Lee',    email: 'marcus.lee@nexusgroup.com', company: 'Nexus Group',        status: 'Prospect', created_at: '2024-12-01' },
+  { id: 4, name: 'Priya Patel',   email: 'priya@startupx.io',         company: 'StartupX',           status: 'Active',   created_at: '2024-12-10' },
+  { id: 5, name: 'David Kim',     email: 'david.kim@growlab.com',     company: 'GrowLab Agency',     status: 'Inactive', created_at: '2025-01-04' },
+  { id: 6, name: 'Olivia Turner', email: 'olivia@turnerbrands.net',   company: 'Turner Brands',      status: 'Active',   created_at: '2025-01-18' },
+  { id: 7, name: 'Ethan Brooks',  email: 'e.brooks@cloudventures.io', company: 'Cloud Ventures',     status: 'Prospect', created_at: '2025-02-02' },
+  { id: 8, name: 'Aisha Morales', email: 'aisha@moredesign.com',      company: 'More Design Studio', status: 'Active',   created_at: '2025-02-20' },
+];
 
 // ─── Middleware ───────────────────────────────────────────────────────────────
 app.set('view engine', 'ejs');
@@ -86,7 +57,7 @@ app.get('/login', (req, res) => {
 // Login POST
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
-  const user = db.prepare('SELECT * FROM users WHERE username = ? AND password = ?').get(username, password);
+  const user = USERS.find(u => u.username === username && u.password === password);
   if (user) {
     req.session.user = { id: user.id, username: user.username };
     return res.redirect('/dashboard');
@@ -101,14 +72,12 @@ app.get('/logout', (req, res) => {
 
 // Dashboard
 app.get('/dashboard', requireAuth, (req, res) => {
-  const contacts = db.prepare('SELECT * FROM contacts').all();
-  res.render('dashboard', { user: req.session.user, contacts, page: 'overview' });
+  res.render('dashboard', { user: req.session.user, contacts: CONTACTS });
 });
 
 // Contacts
 app.get('/contacts', requireAuth, (req, res) => {
-  const contacts = db.prepare('SELECT * FROM contacts').all();
-  res.render('contacts', { user: req.session.user, contacts });
+  res.render('contacts', { user: req.session.user, contacts: CONTACTS });
 });
 
 // Analytics (static page)
